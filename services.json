@@ -1,0 +1,96 @@
+{
+    "servicios": [
+        {
+            "id": "1",
+            "nombre": "Consulta General",
+            "horarioSemana": "Lunes a Viernes: 8:00 AM - 5:00 PM",
+            "horarioFinSemana": "Sábado: 9:00 AM - 1:00 PM",
+            "horarioFeriado": "Cerrado",
+            "agendamiento": "Llamar al 555-0101 o enviar WhatsApp al mismo número",
+            "contacto": "555-0101",
+            "keywords": [
+                "consulta",
+                "médico",
+                "general",
+                "doctor",
+                "atención",
+                "medicina"
+            ],
+            "habilitado": true
+        },
+        {
+            "id": "2",
+            "nombre": "Odontología",
+            "horarioSemana": "Lunes a Viernes: 9:00 AM - 6:00 PM",
+            "horarioFinSemana": "Sábado: 10:00 AM - 2:00 PM",
+            "horarioFeriado": "Cerrado",
+            "agendamiento": "Llamar al 555-0102 para agendar cita",
+            "contacto": "555-0102",
+            "keywords": [
+                "dental",
+                "dientes",
+                "odontología",
+                "dentista",
+                "muela",
+                "caries",
+                "limpieza"
+            ],
+            "habilitado": true
+        },
+        {
+            "id": "3",
+            "nombre": "Laboratorio Clínico",
+            "horarioSemana": "Lunes a Viernes: 7:00 AM - 12:00 PM",
+            "horarioFinSemana": "Sábado: 7:00 AM - 11:00 AM",
+            "horarioFeriado": "Cerrado",
+            "agendamiento": "No requiere cita previa, atención por orden de llegada",
+            "contacto": "555-0103",
+            "keywords": [
+                "laboratorio",
+                "análisis",
+                "exámenes",
+                "sangre",
+                "orina",
+                "pruebas"
+            ],
+            "habilitado": true
+        },
+        {
+            "id": "4",
+            "nombre": "Rayos X",
+            "horarioSemana": "Lunes a Viernes: 8:00 AM - 4:00 PM",
+            "horarioFinSemana": "Cerrado",
+            "horarioFeriado": "Cerrado",
+            "agendamiento": "Llamar al 555-0104 con orden médica",
+            "contacto": "555-0104",
+            "keywords": [
+                "rayos x",
+                "radiografía",
+                "radiología",
+                "placa",
+                "imagen"
+            ],
+            "habilitado": true
+        },
+        {
+            "id": "5",
+            "nombre": "Pediatría",
+            "horarioSemana": "Lunes a Viernes: 9:00 AM - 5:00 PM",
+            "horarioFinSemana": "Sábado: 9:00 AM - 1:00 PM",
+            "horarioFeriado": "Cerrado",
+            "agendamiento": "Llamar al 555-0105 o WhatsApp",
+            "contacto": "555-0105",
+            "keywords": [
+                "pediatría",
+                "niños",
+                "bebés",
+                "infantil",
+                "pediátrico",
+                "menor"
+            ],
+            "habilitado": true
+        }
+    ],
+    "ultimaActualizacion": "2025-11-27T12:56:00-05:00",
+    "version": "1.0"
+}
