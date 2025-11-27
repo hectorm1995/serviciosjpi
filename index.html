@@ -135,6 +135,15 @@
             transform: translateY(-2px);
         }
 
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -232,15 +241,6 @@
             font-size: 0.9rem;
         }
 
-        .btn-secondary {
-            background: #6c757d;
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            background: #5a6268;
-        }
-
         .btn-danger {
             background: #ef4444;
             color: white;
@@ -319,6 +319,7 @@
         }
 
         input[type="text"],
+        input[type="password"],
         textarea {
             width: 100%;
             padding: 12px;
@@ -434,14 +435,30 @@
 <body>
     <div class="container">
         <header>
-            <h1>🏥 Gestor de Servicios de Salud JPI</h1>
+            <h1>🏥 Gestor de Servicios de Salud</h1>
             <p class="subtitle">Administra tus servicios de forma visual e intuitiva</p>
-            <div class="sync-status synced" id="syncStatus">
-                ✓ Sincronizado
+            <div class="sync-status syncing" id="syncStatus">
+                ⏳ Cargando...
             </div>
         </header>
 
-
+        <!-- Configuración -->
+        <div class="config-section">
+            <h3>⚙️ Configuración</h3>
+            <div class="form-group">
+                <label for="servicesUrl">URL del services.json:</label>
+                <input type="text" id="servicesUrl" class="config-input"
+                    placeholder="https://tuusuario.github.io/health-services-simple/services.json"
+                    onchange="saveConfig()">
+                <small style="color: #666;">URL donde está alojado tu services.json (GitHub Pages, VPS, etc.)</small>
+            </div>
+            <div class="form-group">
+                <label for="n8nWebhook">URL del Webhook de n8n (opcional):</label>
+                <input type="text" id="n8nWebhook" class="config-input"
+                    placeholder="https://tu-n8n.com/webhook/invalidar-cache" onchange="saveConfig()">
+                <small style="color: #666;">Para invalidar caché automáticamente al guardar cambios</small>
+            </div>
+        </div>
 
         <div class="stats">
             <div class="stat-card">
@@ -465,6 +482,9 @@
             <button class="btn btn-success" onclick="downloadJSON()">
                 ⬇ Descargar services.json
             </button>
+            <button class="btn btn-secondary" onclick="loadFromUrl()">
+                🔄 Recargar desde URL
+            </button>
             <input type="file" id="fileInput" accept=".json" style="display:none" onchange="loadFile(event)">
             <button class="btn btn-secondary" onclick="document.getElementById('fileInput').click()">
                 📂 Cargar Archivo
@@ -472,19 +492,8 @@
         </div>
 
         <div id="message"></div>
-        <div class="services-grid" id="servicesGrid"></div>
-    </div>
 
-    <!-- Configuración de Sincronización -->
-    <div class="config-section" id="configSection">
-        <h3>⚙️ Configuración de Sincronización Automática</h3>
-        <div class="form-group">
-            <label for="n8nWebhook">URL del Webhook de n8n (para invalidar caché):</label>
-            <input type="text" id="n8nWebhook" class="config-input"
-                placeholder="https://tu-n8n.com/webhook/invalidar-cache" onchange="saveConfig()">
-            <small style="color: #666;">Opcional: Si configuras esto, el caché de n8n se invalidará automáticamente
-                al guardar cambios</small>
-        </div>
+        <div class="services-grid" id="servicesGrid"></div>
     </div>
 
     <!-- Modal para agregar/editar servicio -->
@@ -545,7 +554,7 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Guardar y Sincronizar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
                     </div>
                 </form>
             </div>
@@ -556,50 +565,63 @@
         let servicios = [];
         let currentEditId = null;
         let config = {
+            servicesUrl: './services.json', // Por defecto, archivo local
             n8nWebhook: ''
         };
 
         // Cargar configuración y datos al iniciar
         loadConfig();
-        loadData();
+        loadFromUrl();
 
         function loadConfig() {
             const saved = localStorage.getItem('healthServicesConfig');
             if (saved) {
                 config = JSON.parse(saved);
+                document.getElementById('servicesUrl').value = config.servicesUrl || './services.json';
                 document.getElementById('n8nWebhook').value = config.n8nWebhook || '';
             }
         }
 
         function saveConfig() {
+            config.servicesUrl = document.getElementById('servicesUrl').value || './services.json';
             config.n8nWebhook = document.getElementById('n8nWebhook').value;
             localStorage.setItem('healthServicesConfig', JSON.stringify(config));
             showMessage('Configuración guardada', 'success');
         }
 
-        function loadData() {
-            const saved = localStorage.getItem('healthServices');
-            if (saved) {
-                const data = JSON.parse(saved);
+        async function loadFromUrl() {
+            const statusEl = document.getElementById('syncStatus');
+            statusEl.className = 'sync-status syncing';
+            statusEl.textContent = '⏳ Cargando desde URL...';
+
+            try {
+                const response = await fetch(config.servicesUrl + '?t=' + Date.now()); // Cache bust
+                if (!response.ok) throw new Error('Error al cargar el archivo');
+
+                const data = await response.json();
                 servicios = data.servicios || [];
-            } else {
-                // Datos de ejemplo
-                servicios = [
-                    {
-                        id: "1",
-                        nombre: "Consulta General",
-                        horarioSemana: "Lunes a Viernes: 8:00 AM - 5:00 PM",
-                        horarioFinSemana: "Sábado: 9:00 AM - 1:00 PM",
-                        horarioFeriado: "Cerrado",
-                        agendamiento: "Llamar al 555-0101 o enviar WhatsApp",
-                        contacto: "555-0101",
-                        keywords: ["consulta", "médico", "general", "doctor"],
-                        habilitado: true
-                    }
-                ];
-                saveData();
+
+                statusEl.className = 'sync-status synced';
+                statusEl.textContent = '✓ Cargado desde URL';
+
+                renderServices();
+                showMessage(`Servicios cargados correctamente desde URL (${servicios.length} servicios)`, 'success');
+            } catch (error) {
+                console.error('Error cargando desde URL:', error);
+                statusEl.className = 'sync-status error';
+                statusEl.textContent = '✗ Error al cargar';
+
+                // Intentar cargar desde localStorage como fallback
+                const saved = localStorage.getItem('healthServices');
+                if (saved) {
+                    const data = JSON.parse(saved);
+                    servicios = data.servicios || [];
+                    renderServices();
+                    showMessage('Usando datos guardados localmente (no se pudo cargar desde URL)', 'info');
+                } else {
+                    showMessage('Error: No se pudo cargar el archivo. Verifica la URL en configuración.', 'error');
+                }
             }
-            renderServices();
         }
 
         function saveData() {
@@ -608,22 +630,20 @@
                 ultimaActualizacion: new Date().toISOString(),
                 version: "1.0"
             };
+
+            // Guardar en localStorage como backup
             localStorage.setItem('healthServices', JSON.stringify(data));
             renderServices();
 
-            // Sincronizar automáticamente
+            // Invalidar caché de n8n
             syncToN8N();
         }
 
         async function syncToN8N() {
             if (!config.n8nWebhook) {
-                console.log('No hay webhook configurado, saltando sincronización');
+                console.log('No hay webhook configurado');
                 return;
             }
-
-            const statusEl = document.getElementById('syncStatus');
-            statusEl.className = 'sync-status syncing';
-            statusEl.textContent = '⏳ Sincronizando...';
 
             try {
                 const response = await fetch(config.n8nWebhook, {
@@ -638,22 +658,10 @@
                 });
 
                 if (response.ok) {
-                    statusEl.className = 'sync-status synced';
-                    statusEl.textContent = '✓ Sincronizado';
                     console.log('✅ Caché de n8n invalidado correctamente');
-                } else {
-                    throw new Error('Error en la respuesta del webhook');
                 }
             } catch (error) {
                 console.error('Error sincronizando con n8n:', error);
-                statusEl.className = 'sync-status error';
-                statusEl.textContent = '✗ Error de sincronización';
-
-                // Volver a estado normal después de 3 segundos
-                setTimeout(() => {
-                    statusEl.className = 'sync-status synced';
-                    statusEl.textContent = '✓ Guardado localmente';
-                }, 3000);
             }
         }
 
@@ -672,7 +680,7 @@
                     <div class="empty-state">
                         <div class="empty-state-icon">📋</div>
                         <h3>No hay servicios</h3>
-                        <p>Agrega tu primer servicio para comenzar</p>
+                        <p>Carga el archivo services.json desde la URL configurada o agrega servicios manualmente</p>
                     </div>
                 `;
                 return;
@@ -777,10 +785,10 @@
             if (currentEditId) {
                 const index = servicios.findIndex(s => s.id === currentEditId);
                 servicios[index] = serviceData;
-                showMessage('Servicio actualizado y sincronizado correctamente', 'success');
+                showMessage('Servicio actualizado. Descarga el JSON y súbelo a GitHub.', 'success');
             } else {
                 servicios.push(serviceData);
-                showMessage('Servicio agregado y sincronizado correctamente', 'success');
+                showMessage('Servicio agregado. Descarga el JSON y súbelo a GitHub.', 'success');
             }
 
             saveData();
@@ -792,7 +800,7 @@
             if (servicio) {
                 servicio.habilitado = !servicio.habilitado;
                 saveData();
-                showMessage(`Servicio ${servicio.habilitado ? 'habilitado' : 'deshabilitado'} y sincronizado`, 'success');
+                showMessage(`Servicio ${servicio.habilitado ? 'habilitado' : 'deshabilitado'}. Descarga el JSON y súbelo a GitHub.`, 'success');
             }
         }
 
@@ -801,7 +809,7 @@
 
             servicios = servicios.filter(s => s.id !== id);
             saveData();
-            showMessage('Servicio eliminado y sincronizado correctamente', 'success');
+            showMessage('Servicio eliminado. Descarga el JSON y súbelo a GitHub.', 'success');
         }
 
         function downloadJSON() {
@@ -819,7 +827,7 @@
             a.click();
             URL.revokeObjectURL(url);
 
-            showMessage('Archivo descargado correctamente', 'success');
+            showMessage('Archivo descargado. Ahora súbelo a GitHub con: git add services.json && git commit -m "Actualizar" && git push', 'success');
         }
 
         function loadFile(event) {
@@ -832,7 +840,7 @@
                     const data = JSON.parse(e.target.result);
                     servicios = data.servicios || [];
                     saveData();
-                    showMessage('Archivo cargado y sincronizado correctamente', 'success');
+                    showMessage('Archivo cargado correctamente', 'success');
                 } catch (error) {
                     showMessage('Error al cargar el archivo: ' + error.message, 'error');
                 }
@@ -845,7 +853,7 @@
             messageDiv.innerHTML = `<div class="message ${type}">${text}</div>`;
             setTimeout(() => {
                 messageDiv.innerHTML = '';
-            }, 3000);
+            }, 5000);
         }
 
         // Cerrar modal al hacer click fuera
