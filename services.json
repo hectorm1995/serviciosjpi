@@ -71,8 +71,22 @@
         "imagen"
       ],
       "habilitado": true
+    },
+    {
+      "id": "1764279454718",
+      "nombre": "Traumatologia",
+      "horarioSemana": "Lunes de 17h00 a 18h00",
+      "horarioFinSemana": "Cerrado",
+      "horarioFeriado": "Cerrado",
+      "agendamiento": "0980432753",
+      "contacto": "0980432753",
+      "keywords": [
+        "traumatologo",
+        "dolor"
+      ],
+      "habilitado": true
     }
   ],
-  "ultimaActualizacion": "2025-11-27T20:51:56.175Z",
+  "ultimaActualizacion": "2025-11-27T21:37:40.876Z",
   "version": "1.0"
 }
