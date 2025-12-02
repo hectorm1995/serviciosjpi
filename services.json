@@ -1,92 +1,56 @@
 {
-  "servicios": [
-    {
-      "id": "1",
-      "nombre": "Consulta General",
-      "horarioSemana": "Lunes a Viernes: 8:00 AM - 5:00 PM",
-      "horarioFinSemana": "Sábado: 9:00 AM - 1:00 PM",
-      "horarioFeriado": "Cerrado",
-      "agendamiento": "Llamar al 555-0101 o enviar WhatsApp al mismo número",
-      "contacto": "555-0101",
-      "keywords": [
-        "consulta",
-        "médico",
-        "general",
-        "doctor",
-        "atención",
-        "medicina"
-      ],
-      "habilitado": true
-    },
-    {
-      "id": "2",
-      "nombre": "Odontología",
-      "horarioSemana": "Lunes a Viernes: 9:00 AM - 6:00 PM",
-      "horarioFinSemana": "Sábado: 10:00 AM - 2:00 PM",
-      "horarioFeriado": "Cerrado",
-      "agendamiento": "Llamar al 555-0102 para agendar cita",
-      "contacto": "555-0102",
-      "keywords": [
-        "dental",
-        "dientes",
-        "odontología",
-        "dentista",
-        "muela",
-        "caries",
-        "limpieza"
-      ],
-      "habilitado": true
-    },
-    {
-      "id": "3",
-      "nombre": "Laboratorio Clínico",
-      "horarioSemana": "Lunes a Viernes: 7:00 AM - 12:00 PM",
-      "horarioFinSemana": "Sábado: 7:00 AM - 11:00 AM",
-      "horarioFeriado": "Cerrado",
-      "agendamiento": "No requiere cita previa, atención por orden de llegada",
-      "contacto": "555-0103",
-      "keywords": [
-        "laboratorio",
-        "análisis",
-        "exámenes",
-        "sangre",
-        "orina",
-        "pruebas"
-      ],
-      "habilitado": true
-    },
-    {
-      "id": "4",
-      "nombre": "Rayos X",
-      "horarioSemana": "Lunes a Viernes: 8:00 AM - 4:00 PM",
-      "horarioFinSemana": "Cerrado",
-      "horarioFeriado": "Cerrado",
-      "agendamiento": "Llamar al 555-0104 con orden médica",
-      "contacto": "555-0104",
-      "keywords": [
-        "rayos x",
-        "radiografía",
-        "radiología",
-        "placa",
-        "imagen"
-      ],
-      "habilitado": true
-    },
-    {
-      "id": "1764279454718",
-      "nombre": "Traumatologia",
-      "horarioSemana": "Lunes de 17h00 a 18h00",
-      "horarioFinSemana": "Cerrado",
-      "horarioFeriado": "Cerrado",
-      "agendamiento": "0980432753",
-      "contacto": "0980432753",
-      "keywords": [
-        "traumatologo",
-        "dolor"
-      ],
-      "habilitado": true
-    }
-  ],
-  "ultimaActualizacion": "2025-11-27T21:37:40.876Z",
-  "version": "1.0"
+    "servicios": [
+        {
+            "id": "1764282199021",
+            "tipo": "promocion",
+            "nombre": "Promocion Tamizaje ITS",
+            "contacto": "https://wa.me/593984755477",
+            "keywords": [
+                "Promocion",
+                "paquete",
+                "promocion laboratorio",
+                "octubre"
+            ],
+            "habilitado": true,
+            "fechaInicio": "2025-12-01",
+            "fechaFin": "2025-12-31",
+            "precioNormal": "35",
+            "precioPromocion": "20",
+            "descripcion": "Consulta Medicina General + Revisión Exámenes y Panel ETS"
+        },
+        {
+            "id": "1764282346921",
+            "tipo": "salud",
+            "nombre": "Laboratorio CLinico",
+            "contacto": "https://wa.me/593984755477",
+            "keywords": [
+                "laboratorio",
+                "prueba de embarazo",
+                "tipificación"
+            ],
+            "habilitado": true,
+            "horarioSemana": "Luneas a Viernes: 7:00 AM - 18:00 PM",
+            "horarioFinSemana": "Sábado y Domingo: 7:00 AM - 15:30 PM",
+            "horarioFeriado": "7:00 AM - 12:00 PM",
+            "agendamiento": "No es necesario agendar turno"
+        },
+        {
+            "id": "1764340359831",
+            "tipo": "capacitacion",
+            "nombre": "Curso Primeros Auxilios",
+            "contacto": "Para mayor información e inscripciones comunicarse directamente al siguiente número de WhatsApp https:wa.me/593995127034",
+            "keywords": [
+                "PAB",
+                "Auxilios",
+                "capacitación"
+            ],
+            "habilitado": true,
+            "fechasRealizacion": "6-7-14-15 de Diciembre 2025",
+            "horario": "8:00 AM - 17:00 PM",
+            "costo": "49.99",
+            "descripcion": "Curso Básico de Primeros Auxilios Teórico - Práctico con certificado avalado por Cruz Roja Junta Provincial de Imbabura"
+        }
+    ],
+    "ultimaActualizacion": "2025-12-02T13:59:11.821Z",
+    "version": "3.0"
 }
