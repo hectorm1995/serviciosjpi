@@ -21,7 +21,7 @@
         {
             "id": "1764282346921",
             "tipo": "salud",
-            "nombre": "Laboratorio CLinico",
+            "nombre": "Laboratorio Clinico",
             "contacto": "https://wa.me/593984755477",
             "keywords": [
                 "laboratorio",
@@ -49,8 +49,42 @@
             "horario": "8:00 AM - 17:00 PM",
             "costo": "49.99",
             "descripcion": "Curso Básico de Primeros Auxilios Teórico - Práctico con certificado avalado por Cruz Roja Junta Provincial de Imbabura"
+        },
+        {
+            "id": "1765547791412",
+            "tipo": "salud",
+            "nombre": "Donación de Sangre",
+            "contacto": "Llamar al número 062950888 extensión 108 o acercarse a la institución.",
+            "keywords": [
+                "donacion",
+                "sangre",
+                "donar",
+                "colecta"
+            ],
+            "habilitado": true,
+            "horarioSemana": "Lunes a Viernes: 8:00 AM - 17:00 PM",
+            "horarioFinSemana": "Sábado: 8:00 AM - 12:00 PM",
+            "horarioFeriado": "No aplica",
+            "agendamiento": "No es necesario agendar, lo puede hacer directamente en las instalaciones de Cruz Roja Imbabura en los horarios establecidos.\nPara más información sobre requisitos y beneficios para donar sangre lo encuentra en el siguiente enlace: 👉 https://cruzrojaimbabura.org.ec/donar-sangre/ "
+        },
+        {
+            "id": "1765548272499",
+            "tipo": "salud",
+            "nombre": "Ecografía",
+            "contacto": " http://wa.me/593994349535",
+            "keywords": [
+                "ecografia",
+                "transvaginal",
+                "renal",
+                "prostatico"
+            ],
+            "habilitado": true,
+            "horarioSemana": "Rotativo",
+            "horarioFinSemana": "No aplica",
+            "horarioFeriado": "No aplica",
+            "agendamiento": "Para la atención es necesario realizar un agendamiento a este número de WhatsApp http://wa.me/593994349535 en el cual se debe colocar el servicio que se desea agendar, el nombre del paciente y la hora requerida. El personal verificará la disponibilidad del horario y se contactará inmediatamente."
         }
     ],
-    "ultimaActualizacion": "2025-12-02T13:59:11.821Z",
+    "ultimaActualizacion": "2025-12-12T17:33:40.797Z",
     "version": "3.0"
 }
